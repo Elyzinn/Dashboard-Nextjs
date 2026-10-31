@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pulso
 
-## Getting Started
+Dashboard em português com login, cadastro e listagem pesquisável de usuários.
+O projeto segue o trabalho da pasta `Docs/`: uma tela de login, uma tela de
+dashboard e uma listagem acessível pela navegação.
 
-First, run the development server:
+## Executar
+
+Use Node.js 24 ou superior:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000), crie uma conta e entre no
+dashboard. O cadastro salva o usuário no SQLite e inicia a sessão.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Dados
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O SQLite nativo do Node armazena usuários e sessões em
+`data/dashboard.sqlite`. Essa pasta é ignorada pelo Git. Para escolher outro
+caminho, defina `SQLITE_DATABASE_PATH` antes de iniciar o servidor.
 
-## Learn More
+As senhas são armazenadas com hash scrypt, e as sessões usam cookies HttpOnly
+com tokens aleatórios guardados como hash no banco. Em produção, use uma
+instalação Node.js com `node:sqlite` e um volume persistente para o arquivo do
+banco; o disco efêmero de algumas plataformas não preserva os cadastros entre
+deploys.
 
-To learn more about Next.js, take a look at the following resources:
+## Telas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `/`: login
+- `/cadastro`: criação de conta
+- `/dashboard`: indicadores e cadastros recentes
+- `/usuarios`: listagem com busca por nome e e-mail
